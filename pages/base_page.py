@@ -7,13 +7,13 @@ class BasePage:
         self.wait = WebDriverWait(driver, 10)
 
     def click(self, locator):
-        element = WebDriverWait(self.driver, 10).until(
+        element = self.wait.until(
             EC.visibility_of_element_located(locator)
         )
         element.click()
 
     def click_scroll(self, locator):
-        element = WebDriverWait(self.driver, 10).until(
+        element = self.wait.until(
             EC.visibility_of_element_located(locator)
         )
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)

@@ -6,8 +6,7 @@ class BasePage:
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
 
-    def find(self, locator, timeout=10):
-        """Поиск элемента с ожиданием его видимости"""
+    def find(self, locator):
         return self.wait.until(
             EC.visibility_of_element_located(locator)
         )

@@ -1,3 +1,4 @@
+import re
 from time import sleep
 
 import pytest
@@ -20,15 +21,20 @@ class TestBookOrdering:
         with allure.step("2. Применение фильтров"):
             search_page = SearchPage(browser)
             search_page.apply_filters()
-            search_page.select_first_book()
+            search_page.select_book()
 
         with allure.step("3. Добавление в корзину"):
             product_page = ProductPage(browser)
+            price = product_page.get_product_price()
+            price_normalized = re.search(r'\$\d+\.\d+', price).group()
+            print(f"Цена товара: {price_normalized}")
             product_page.add_to_cart()
             product_page.go_to_cart()
-            sleep(3)
 
         with allure.step("4. Проверка корзины"):
             cart_page = CartPage(browser)
-            assert "Python" in cart_page.get_product_title()
-            cart_page.proceed_to_checkout()
+            assert "Python" in cart_page.get_product_title(), "Название товара не содержит 'Python'"
+            price_cart = cart_page.get_product_price_cart()
+            price_cart_normalized = re.search(r'\$\d+\.\d+', price_cart).group()
+            print(f"Цена товара в корзине: {price_cart_normalized}")
+            assert price_normalized == price_cart_normalized, f'Цены не совпадают: {price} != {price_cart}'

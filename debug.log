@@ -1,3 +1,0 @@
-2025-07-02 21:51:04,405 [INFO] ====== WebDriver manager ======
-2025-07-02 21:51:04,474 [INFO] There is no [mac_arm64] chromedriver "latest" for browser google-chrome "137.0.7151" in cache
-2025-07-02 21:51:04,474 [INFO] Get LATEST chromedriver version for google-chrome
